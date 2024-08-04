@@ -5,6 +5,8 @@
 
 This is a product management application built using React and Redux. It allows users to view, add, and edit products. The application features a modal for adding products, a search functionality, and a table to display product details.
 
+## Deployed Link- https://stupendous-mermaid-e87d56.netlify.app
+
 ## Features
 
 - **View Products**: Display a list of products with details like name, material, grade, and price.
