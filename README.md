@@ -26,3 +26,9 @@ This is a product management application built using React and Redux. It allows 
 
    ```bash
    git clone https://github.com/Anshuldhakate/K-Digital-Directory-Listing.git
+
+## Install dependencies:
+- npm install
+
+## Start the application:
+- npm start
