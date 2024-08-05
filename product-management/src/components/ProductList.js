@@ -41,7 +41,6 @@ const ProductList = () => {
   };
 
   const applyBulkEdit = () => {
-    // Add bulk edit logic here
     console.log('Bulk edit applied:', bulkEdit);
   };
 
@@ -65,8 +64,6 @@ const ProductList = () => {
       details: `Material: ${selectedMaterial}\nGrade: ${grade}`,
       price: 'N/A',
     }));
-    // Simulate adding products to state
-    // You would need to add logic here to update the Redux store or component state
     console.log('New Products Added:', newProducts);
   };
 
@@ -276,7 +273,7 @@ const styles = {
     width: '100%',
     borderCollapse: 'collapse',
     marginTop: '20px',
-    border: "1px solid black"
+    border: "1px solid black",
   },
   tableHeader: {
     padding: '10px',

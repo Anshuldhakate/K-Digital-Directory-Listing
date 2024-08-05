@@ -2,10 +2,10 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   products: [
-    { id: 1, name: 'Stainless Steel 304 Pipe', material: 'Stainless Steel', grade: '304', details: 'Material: Stainless Steel\nUnit Length: 6-12 meter\nShape: Round', price: '350' },
-    { id: 2, name: 'Carbon Steel A105 Tubing', material: 'Carbon Steel', grade: 'A105', details: 'Material: Carbon Steel\nUnit Length: 6-12 meter\nShape: Round', price: '350' },
-    { id: 3, name: 'Aluminum Alloy 6061 Bar', material: 'Aluminum Alloy', grade: '6061', details: 'Material: Aluminum Alloy\nUnit Length: 6-12 meter\nShape: Round', price: '400' },
-    { id: 4, name: 'Brass C360 Rod', material: 'Brass', grade: 'C360', details: 'Material: Brass\nUnit Length: 6-12 meter\nShape: Round', price: '500' },
+    { id: 1, name: 'Stainless Steel 304 Pipe', material: 'Stainless Steel', grade: '304', details: 'Material: Stainless Steel\nUnit Length: 6-12 meter\nShape: Round', price: '350 /KG' },
+    { id: 2, name: 'Carbon Steel A105 Tubing', material: 'Carbon Steel', grade: 'A105', details: 'Material: Carbon Steel\nUnit Length: 6-12 meter\nShape: Round', price: '350 /KG' },
+    { id: 3, name: 'Aluminum Alloy 6061 Bar', material: 'Aluminum Alloy', grade: '6061', details: 'Material: Aluminum Alloy\nUnit Length: 6-12 meter\nShape: Round', price: '400 /KG' },
+    { id: 4, name: 'Brass C360 Rod', material: 'Brass', grade: 'C360', details: 'Material: Brass\nUnit Length: 6-12 meter\nShape: Round', price: '500 /KG' },
   ],
   filteredProducts: [],
   searchQuery: '',

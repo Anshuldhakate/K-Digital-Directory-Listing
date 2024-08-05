@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Modal, Button, Grid, List, ListItem, ListItemText, Checkbox, ListItemSecondaryAction, Divider, Typography, TextField } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Grid, List, ListItem, ListItemText, Checkbox, ListItemSecondaryAction, Typography, Divider, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../store'; 
-import './AddProductsModal.css'
+import { addProduct } from '../store';
+import './AddProductsModal.css';
 
 const categories = {
   products: ['Pipes', 'Tubing', 'Pipe Fittings', 'Forged Fittings', 'Flanges', 'Valves', 'Gaskets'],
@@ -16,12 +16,23 @@ const categories = {
   },
 };
 
+// Dummy pricing logic with unit
+const getPrice = (product, material, grades) => {
+  // In a real application, pricing logic should be more complex and based on actual data.
+  const price = (product && material && grades.length) ? (Math.random() * 500).toFixed(0) : '';
+  return price ? `${price} /KG` : '';
+};
+
 const AddProductModal = ({ isOpen, onClose }) => {
   const [selectedProduct, setSelectedProduct] = useState('');
   const [selectedMaterial, setSelectedMaterial] = useState('');
   const [selectedGrades, setSelectedGrades] = useState([]);
-  const [price, setPrice] = useState(''); // Add state for price
+  const [price, setPrice] = useState('');
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setPrice(getPrice(selectedProduct, selectedMaterial, selectedGrades));
+  }, [selectedProduct, selectedMaterial, selectedGrades]);
 
   const handleProductChange = (product) => {
     setSelectedProduct(product);
@@ -51,45 +62,51 @@ const AddProductModal = ({ isOpen, onClose }) => {
         price,
       };
 
-      console.log('Dispatching new product:', newProduct); // Add this line for debugging
-
       dispatch(addProduct(newProduct));
       onClose();
-    } else {
-      console.log('Validation failed:', { selectedProduct, selectedMaterial, selectedGrades, price }); // Add this line for debugging
     }
   };
 
   return (
     <Modal open={isOpen} onClose={onClose}>
       <div className="modal-content">
-        <Typography variant="h6" gutterBottom className="modal-title">Add Products</Typography>
+        <Typography variant="h6" className="modal-title">Add Products</Typography>
         <Grid container spacing={2} className="modal-grid">
           <Grid item xs={4} className="list-container">
-            <Typography variant="subtitle1" gutterBottom>Products</Typography>
-            <List className="list">
+            <Typography variant="subtitle1">Products ({selectedProduct ? '1' : '0'})</Typography>
+            <List>
               {categories.products.map((product) => (
-                <ListItem button onClick={() => handleProductChange(product)} key={product} className={`list-item ${selectedProduct === product ? 'selected' : ''}`}>
+                <ListItem
+                  button
+                  key={product}
+                  onClick={() => handleProductChange(product)}
+                  className={`list-item ${selectedProduct === product ? 'selected' : ''}`}
+                >
                   <ListItemText primary={product} />
                 </ListItem>
               ))}
             </List>
           </Grid>
           <Grid item xs={4} className="list-container">
-            <Typography variant="subtitle1" gutterBottom>Material</Typography>
-            <List className="list">
+            <Typography variant="subtitle1">Material ({selectedMaterial ? '1' : '0'})</Typography>
+            <List>
               {categories.materials.map((material) => (
-                <ListItem button onClick={() => handleMaterialChange(material)} key={material} className={`list-item ${selectedMaterial === material ? 'selected' : ''}`}>
+                <ListItem
+                  button
+                  key={material}
+                  onClick={() => handleMaterialChange(material)}
+                  className={`list-item ${selectedMaterial === material ? 'selected' : ''}`}
+                >
                   <ListItemText primary={material} />
                 </ListItem>
               ))}
             </List>
           </Grid>
           <Grid item xs={4} className="list-container">
-            <Typography variant="subtitle1" gutterBottom>Grades</Typography>
-            <List className="list">
+            <Typography variant="subtitle1">Grades ({selectedGrades.length})</Typography>
+            <List>
               {categories.grades[selectedMaterial]?.map((grade) => (
-                <ListItem key={grade} button onClick={() => handleGradeToggle(grade)} className="list-item">
+                <ListItem key={grade} className="list-item">
                   <ListItemText primary={grade} />
                   <ListItemSecondaryAction>
                     <Checkbox
@@ -104,14 +121,24 @@ const AddProductModal = ({ isOpen, onClose }) => {
           </Grid>
         </Grid>
         <Divider />
-        <TextField
-          label="Price"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Product</TableCell>
+              <TableCell>Material</TableCell>
+              <TableCell>Grades</TableCell>
+              <TableCell>Price</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>{selectedProduct}</TableCell>
+              <TableCell>{selectedMaterial}</TableCell>
+              <TableCell>{selectedGrades.join(', ')}</TableCell>
+              <TableCell>{price}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
         <Button onClick={handleSubmit} variant="contained" color="primary" className="submit-button">
           Submit
         </Button>
