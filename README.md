@@ -3,7 +3,7 @@
 
 ## Overview
 
-This is a product management application built using React and Redux. It allows users to view, add, and edit products. The application features a modal for adding products, a search functionality, and a table to display product details.
+This project is a web-based application designed for KDigital to manage products efficiently. The application includes features like adding products, filtering products, bulk editing, and more.
 
 ## Deployed Link- https://stupendous-mermaid-e87d56.netlify.app
 <br/>
@@ -15,16 +15,17 @@ This is a product management application built using React and Redux. It allows 
 
 ## Features
 
-- **View Products**: Display a list of products with details like name, material, grade, and price.
-- **Add Products**: Add new products using a modal form.
-- **Edit Products**: Quickly edit product details using a table row interface.
-- **Search Functionality**: Search products by name.
+- **Add Products:** Easily add new products to the list.
+- **Search:** Quickly find products using the search functionality.
+- **Filter Products:** Filter products based on various criteria.
+- **Bulk Edit:** Apply actions to multiple products at once.
+- **Responsive Design:** Fully responsive, optimized for desktop and mobile devices.
 
 ## Technologies Used
 
-- **Frontend**: React, Redux, MUI (Material-UI)
-- **State Management**: Redux Toolkit
-- **Styling**: CSS, MUI Components
+- **Frontend:** React, JavaScript, HTML, SCSS
+- **Design:** Material UI (MUI), Custom CSS
+- **Other:** Axios for API requests, Flexbox for layout management
 
 ## Installation
 
