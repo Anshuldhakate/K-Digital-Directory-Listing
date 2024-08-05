@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Button, Grid, List, ListItem, ListItemText, Checkbox, ListItemSecondaryAction, Divider, Typography } from '@mui/material';
+import { Modal, Button, Grid, List, ListItem, ListItemText, Checkbox, ListItemSecondaryAction, Divider, Typography, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../store'; // Import addProduct action
-import './AddProductModal.css';
+import { addProduct } from '../store'; 
+import './AddProductsModal.css'
 
 const categories = {
   products: ['Pipes', 'Tubing', 'Pipe Fittings', 'Forged Fittings', 'Flanges', 'Valves', 'Gaskets'],
@@ -20,17 +20,18 @@ const AddProductModal = ({ isOpen, onClose }) => {
   const [selectedProduct, setSelectedProduct] = useState('');
   const [selectedMaterial, setSelectedMaterial] = useState('');
   const [selectedGrades, setSelectedGrades] = useState([]);
+  const [price, setPrice] = useState(''); // Add state for price
   const dispatch = useDispatch();
 
   const handleProductChange = (product) => {
     setSelectedProduct(product);
-    setSelectedMaterial(''); // Reset material selection
-    setSelectedGrades([]); // Reset grade selection
+    setSelectedMaterial('');
+    setSelectedGrades([]);
   };
 
   const handleMaterialChange = (material) => {
     setSelectedMaterial(material);
-    setSelectedGrades([]); // Reset grade selection
+    setSelectedGrades([]);
   };
 
   const handleGradeToggle = (grade) => {
@@ -40,16 +41,22 @@ const AddProductModal = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = () => {
-    if (selectedProduct && selectedMaterial && selectedGrades.length > 0) {
-      dispatch(addProduct({
-        id: Date.now(), // Generate a unique ID
+    if (selectedProduct && selectedMaterial && selectedGrades.length > 0 && price) {
+      const newProduct = {
+        id: Date.now(),
         name: selectedProduct,
         material: selectedMaterial,
-        grade: selectedGrades.join(', '), // Combine selected grades
+        grade: selectedGrades.join(', '),
         details: `Material: ${selectedMaterial}\nGrades: ${selectedGrades.join(', ')}`,
-        price: 'TBD', // Placeholder price
-      }));
+        price,
+      };
+
+      console.log('Dispatching new product:', newProduct); // Add this line for debugging
+
+      dispatch(addProduct(newProduct));
       onClose();
+    } else {
+      console.log('Validation failed:', { selectedProduct, selectedMaterial, selectedGrades, price }); // Add this line for debugging
     }
   };
 
@@ -97,6 +104,14 @@ const AddProductModal = ({ isOpen, onClose }) => {
           </Grid>
         </Grid>
         <Divider />
+        <TextField
+          label="Price"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
         <Button onClick={handleSubmit} variant="contained" color="primary" className="submit-button">
           Submit
         </Button>

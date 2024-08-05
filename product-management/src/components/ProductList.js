@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProductRow from './ProductRow';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateProduct } from '../store';
+import { setFilter } from '../store';
 
 const ProductList = () => {
-  const products = useSelector((state) => state.products.products);
+  const [selectedProduct, setSelectedProduct] = useState('');
+  const [selectedMaterial, setSelectedMaterial] = useState('');
+  const products = useSelector((state) => state.products.filteredProducts.length > 0 ? state.products.filteredProducts : state.products.products);
   const dispatch = useDispatch();
 
-  const handleQuickEdit = (updatedProduct) => {
-    dispatch(updateProduct({ id: updatedProduct.id, updatedProduct }));
+  const handleProductChange = (e) => {
+    setSelectedProduct(e.target.value);
   };
+
+  const handleMaterialChange = (e) => {
+    setSelectedMaterial(e.target.value);
+  };
+
+  const applyFilter = () => {
+    dispatch(setFilter({ product: selectedProduct, material: selectedMaterial }));
+  };
+
+  const uniqueProductNames = Array.from(new Set(products.map(product => product.name)));
+  const uniqueMaterials = Array.from(new Set(products.map(product => product.material)));
 
   return (
     <div style={styles.container}>
@@ -18,13 +31,30 @@ const ProductList = () => {
           type="text"
           placeholder="Search Products..."
           style={styles.searchInput}
+          onChange={handleProductChange}
         />
-        <button style={styles.searchButton}>Search</button>
       </div>
+
+      <div style={styles.filterContainer}>
+        <select style={styles.filterDropdown} onChange={handleProductChange}>
+          <option value="">Products</option>
+          {uniqueProductNames.map((name, index) => (
+            <option key={index} value={name}>{name}</option>
+          ))}
+        </select>
+        <select style={styles.filterDropdown} onChange={handleMaterialChange}>
+          <option value="">Materials</option>
+          {uniqueMaterials.map((material, index) => (
+            <option key={index} value={material}>{material}</option>
+          ))}
+        </select>
+        <button style={styles.applyButton} onClick={applyFilter}>Filter</button>
+      </div>
+
       <table style={styles.table}>
         <thead>
           <tr>
-            <th style={styles.tableHeader}>Product</th>
+            <th style={styles.tableHeader}>Products</th>
             <th style={styles.tableHeader}>Action</th>
             <th style={styles.tableHeader}>Product Details</th>
             <th style={styles.tableHeader}>Price in Unit</th>
@@ -33,7 +63,7 @@ const ProductList = () => {
         <tbody>
           {products.map((product) => (
             <ProductRow
-              key={product.id} // Ensure unique key
+              key={product.id}
               product={product}
             />
           ))}
@@ -53,19 +83,42 @@ const styles = {
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    marginBottom: '10px',
+  },
+  addProductButton: {
+    backgroundColor: '#007bff',
+    color: '#fff',
+    padding: '10px 20px',
+    borderRadius: '5px',
+    border: 'none',
+    cursor: 'pointer',
+  },
   searchContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '20px',
+    justifyContent: 'center',
+    marginBottom: '10px',
   },
   searchInput: {
-    flex: 1,
+    width: '100%',
+    padding: '10px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+  },
+  filterContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '20px',
+  },
+  filterDropdown: {
     padding: '10px',
     borderRadius: '4px',
     border: '1px solid #ccc',
     marginRight: '10px',
   },
-  searchButton: {
+  applyButton: {
     padding: '10px 20px',
     borderRadius: '4px',
     border: 'none',
