@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { TableRow, TableCell, TextField, Button, Checkbox } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { updateProduct } from '../store';
-import { TableRow, TableCell, TextField, Button } from '@mui/material';
 
-const ProductRow = ({ product }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editDetails, setEditDetails] = useState(product);
+const ProductRow = ({ product, onCheckboxChange, isChecked }) => {
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [editDetails, setEditDetails] = React.useState(product);
   const dispatch = useDispatch();
 
   const handleSave = () => {
@@ -13,20 +13,26 @@ const ProductRow = ({ product }) => {
     setIsEditing(false);
   };
 
+  const handleCheckboxChange = () => {
+    onCheckboxChange(product.id);
+  };
+
   return (
     <TableRow>
+      <TableCell>
+        <Checkbox checked={isChecked} onChange={handleCheckboxChange} />
+      </TableCell>
       <TableCell>{product.name}</TableCell>
       <TableCell>
         {isEditing ? (
-          <Button variant="contained" onClick={handleSave}>Save</Button>
+          <Button onClick={handleSave}>Save</Button>
         ) : (
-          <Button variant="outlined" onClick={() => setIsEditing(true)}>Quick Edit</Button>
+          <Button onClick={() => setIsEditing(true)}>Edit</Button>
         )}
       </TableCell>
       <TableCell>
         {isEditing ? (
           <TextField
-            variant="outlined"
             value={editDetails.details}
             onChange={(e) => setEditDetails({ ...editDetails, details: e.target.value })}
           />

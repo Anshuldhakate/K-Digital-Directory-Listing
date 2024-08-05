@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Button, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import ProductList from './components/ProductList';
 import AddProductModal from './components/AddProductModal';
 import './App.css';
@@ -27,13 +27,15 @@ function App() {
       <Typography variant="h4" component="h1" gutterBottom className="heading">
         Product Management Dashboard
       </Typography>
-      <div className="button-container">
-        <Button variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
-          + Add Products
-        </Button>
-      </div>
-      <ProductList products={products} />
-      <AddProductModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleAddProduct} />
+      <ProductList 
+        products={products} 
+        onAddProductClick={() => setIsModalOpen(true)} 
+      />
+      <AddProductModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onSubmit={handleAddProduct} 
+      />
     </Container>
   );
 }
