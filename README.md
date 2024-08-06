@@ -9,11 +9,9 @@ This project is a web-based application designed for KDigital to manage products
 https://stupendous-mermaid-e87d56.netlify.app
 ## Output Demo- 
 https://drive.google.com/file/d/1yjIp3qeixc_Opo6NLfe5MAB1aygwNXa9/view?usp=sharing
+
 <br/>
-
-
 <img width="885" alt="Screenshot 2024-08-05 172438" src="https://github.com/user-attachments/assets/0d4fd5f2-d95c-4f2f-8f82-2549ccc77d91">
-
 <br/>
 
 ## Features
