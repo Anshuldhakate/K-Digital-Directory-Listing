@@ -6,6 +6,7 @@
 This project is a web-based application designed for KDigital to manage products efficiently. The application includes features like adding products, filtering products, bulk editing, and more.
 
 ## Deployed Link- https://stupendous-mermaid-e87d56.netlify.app
+## Output Demo- https://drive.google.com/file/d/1yjIp3qeixc_Opo6NLfe5MAB1aygwNXa9/view?usp=sharing
 <br/>
 
 
