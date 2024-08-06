@@ -18,7 +18,6 @@ This project is a web-based application designed for KDigital to manage products
 - **Add Products:** Easily add new products to the list.
 - **Search:** Quickly find products using the search functionality.
 - **Filter Products:** Filter products based on various criteria.
-- **Bulk Edit:** Apply actions to multiple products at once.
 - **Responsive Design:** Fully responsive, optimized for desktop and mobile devices.
 
 ## Technologies Used
